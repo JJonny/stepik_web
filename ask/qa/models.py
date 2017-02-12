@@ -6,17 +6,25 @@ from django.db import models
 class Question(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
-    added_at = models.DateTimeField()
-    rating = models.IntegerField()
+    added_at = models.DateTimeField(blank=True, auto_now_add=True)
+    rating = models.IntegerField(default=0)
     author = models.ForeignKey(User)
-
-    # likes = models.
+    likes = models.ManyToManyField(User, related_name='question_like_user')
 
     def __str__(self):
         return self.title
 
+    class QuestionManger:
+        def new(self):
+            pass
 
-# class QuestionManger(models.Model):
+        def popular(self):
+            pass
+
+
+# class Likes(models.Model):
+#     question = models.ForeignKey(Question, related_name='like_question')
+#     user = models.ForeignKey(User, related_name='like_user')
 
 
 class Answer(models.Model):
