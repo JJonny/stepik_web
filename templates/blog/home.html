@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+	<h1>Home</h1>
+	{% for question in questions %}
+		<h4>{{ question.title }}</h4>
+		<p>{{ question.author }}, {{ question.added_at }}</p>
+		<pre>{{ question.get_short_text }}</pre>
+	{% endfor %}
+
+{% endblock %}

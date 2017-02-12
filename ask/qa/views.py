@@ -1,7 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse
+from qa.models import Question
+
 # import os
 #
 #
@@ -23,4 +24,12 @@ from django.http import HttpResponse
 
 
 def test(request, *args, **kwargs):
-    return HttpResponse("OK")
+    questions = Question.objects.all()
+    context = {
+        'questions': questions
+    }
+    return render(request, 'blog/home.html', context)
+
+
+def about(request, *args, **kwargs):
+    return render(request, 'blog/about.html')

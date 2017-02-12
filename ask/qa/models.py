@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+SHORT_TEXT = 100
 
 # Create your models here.
 class Question(models.Model):
@@ -13,6 +14,12 @@ class Question(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_short_text(self):
+        if len(self.text) > SHORT_TEXT:
+            return self.text[:SHORT_TEXT]
+        else:
+            return self.text
 
     class QuestionManger:
         def new(self):
