@@ -1,10 +1,10 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-SHORT_TEXT = 100
 
-# Create your models here.
-class Question(models.Model):
+SHORT_TEXT = 500
+
+class Question(models.Model):    
     title = models.CharField(max_length=255)
     text = models.TextField()
     added_at = models.DateTimeField(blank=True, auto_now_add=True)
