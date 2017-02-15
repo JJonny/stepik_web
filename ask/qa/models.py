@@ -4,7 +4,17 @@ from django.db import models
 
 SHORT_TEXT = 500
 
-class Question(models.Model):    
+
+class QuestionManger(models.Manager):
+    def new(self):
+        pass
+
+    def popular(self):
+        pass
+
+
+class Question(models.Model):
+    objects = QuestionManger()
     title = models.CharField(max_length=255)
     text = models.TextField()
     added_at = models.DateTimeField(blank=True, auto_now_add=True)
@@ -21,12 +31,7 @@ class Question(models.Model):
         else:
             return self.text
 
-    class QuestionManger:
-        def new(self):
-            pass
 
-        def popular(self):
-            pass
 
 
 # class Likes(models.Model):
