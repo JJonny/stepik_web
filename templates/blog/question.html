@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{ question.title }}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ question.title }}</h1>
+<p>{{ question.author }}, {{ question.added_at }}, like {{question.rating }}</p>
+<p>{{ question.text }}</p>
+
+{% endblock %}	

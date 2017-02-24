@@ -10,7 +10,7 @@ class QuestionManger(models.Manager):
         pass
 
     def popular(self):
-        pass
+        return Question.objects.order_by('-rating')
 
 
 class Question(models.Model):
@@ -30,8 +30,6 @@ class Question(models.Model):
             return self.text[:SHORT_TEXT]
         else:
             return self.text
-
-
 
 
 # class Likes(models.Model):

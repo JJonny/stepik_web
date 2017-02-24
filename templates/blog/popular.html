@@ -5,12 +5,9 @@ Home
 {% endblock %}
 
 {% block content %}
-
-	<h1>Home</h1>
 	{% for question in page_posts %}
 		<h3><a href="{% url 'qa:question' question.id %}"> {{ question.title }} </a></h3>
 		<p>{{ question.author }}, {{ question.added_at }}, like {{question.rating }} </p>
-		<p>{{ question.get_short_text }}</p>
 	{% endfor %}
 
 <div class="pagination">
