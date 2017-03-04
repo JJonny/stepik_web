@@ -9,5 +9,9 @@
 <h1>{{ question.title }}</h1>
 <p>{{ question.author }}, {{ question.added_at }}, like {{question.rating }}</p>
 <p>{{ question.text }}</p>
+<h1>Comments</h1>
+	{% for answer in answers %}
+		<p>{{ answer.text }}</p>
+	{% endfor %}
 
 {% endblock %}	

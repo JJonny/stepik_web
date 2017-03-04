@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Question
+from .models import Question, Answer
 # from .forms import NewQuestionForma
 
 
@@ -11,10 +11,16 @@ def test(request):
     return render(request, 'blog/home.html', {'questions': questions})
 
 
-def post_view(request, id):
-    # question = Question.objects.get(pk=id)
-    question = get_object_or_404(Question, pk=id)
-    return render(request, 'blog/question.html', {'question': question})
+def question(request, id):
+    current_question = get_object_or_404(Question, pk=id)
+    answers = Answer.objects.filter(question_id=id)
+    print('ans: ', answers)
+    data = {
+        'question': current_question,
+        'answers': answers,
+    }
+
+    return render(request, 'blog/question.html', data)
 
 
 def popular(request):

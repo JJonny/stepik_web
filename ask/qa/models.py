@@ -32,13 +32,11 @@ class Question(models.Model):
             return self.text
 
 
-# class Likes(models.Model):
-#     question = models.ForeignKey(Question, related_name='like_question')
-#     user = models.ForeignKey(User, related_name='like_user')
-
-
 class Answer(models.Model):
     text = models.TextField()
     added_at = models.DateTimeField()
     question = models.ForeignKey(Question)
     author = models.ForeignKey(User)
+
+    # def __str__(self):
+    #     return self.author
