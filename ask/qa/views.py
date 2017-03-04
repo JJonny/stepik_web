@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -7,12 +7,13 @@ from .models import Question
 
 
 def test(request):
-    questions = Question.objects.order_by('-added_at')
+    questions = Question.objects.all()
     return render(request, 'blog/home.html', {'questions': questions})
 
 
 def post_view(request, id):
-    question = Question.objects.get(pk=id)
+    # question = Question.objects.get(pk=id)
+    question = get_object_or_404(Question, pk=id)
     return render(request, 'blog/question.html', {'question': question})
 
 
@@ -30,12 +31,13 @@ def popular(request):
 
 
 def listing(request):
-    post_all = Question.objects.order_by('-added_at')
+    post_all = Question.objects.new()
     paginator = Paginator(post_all, 10)
     page = request.GET.get('page')
     try:
         page_posts = paginator.page(page)
     except PageNotAnInteger:
+        page = 1
         page_posts = paginator.page(page)
     except EmptyPage:
         page_posts = paginator.page(paginator.num_pages)

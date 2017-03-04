@@ -7,7 +7,7 @@ SHORT_TEXT = 500
 
 class QuestionManger(models.Manager):
     def new(self):
-        pass
+        return Question.objects.order_by('-added_at')
 
     def popular(self):
         return Question.objects.order_by('-rating')
