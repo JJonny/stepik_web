@@ -9,9 +9,25 @@
 <h1>{{ question.title }}</h1>
 <p>{{ question.author }}, {{ question.added_at }}, like {{question.rating }}</p>
 <p>{{ question.text }}</p>
-<h1>Comments</h1>
+
+<h3>Comments</h1>
 	{% for answer in answers %}
+		<p>{{ answer.author }}, {{ answer.added_at }}</p>
 		<p>{{ answer.text }}</p>
 	{% endfor %}
+
+<form method="post" class="form-vertical">{% csrf_token %}
+	<fieldset>
+		<div class="form-group">
+			<p><label for="id_title" class="col-lg-2 control-label">Text answer</label></p>
+			<div class="col-lg-8">{{ forms.text }}</div>	   	
+		</div>		
+		 <div class="form-group">
+      <div class="col-lg-10">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+	</div>
+</form>
 
 {% endblock %}	

@@ -1,9 +1,11 @@
 from django.shortcuts import render, render_to_response, get_object_or_404
-# from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
+from mysql.connector import authentication
 
 from .models import Question, Answer
-# from .forms import NewQuestionForma
+from .forms import AskForm, AnswerForm
 
 
 def test(request):
@@ -12,14 +14,21 @@ def test(request):
 
 
 def question(request, id):
-    current_question = get_object_or_404(Question, pk=id)
-    answers = Answer.objects.filter(question_id=id)
-    print('ans: ', answers)
-    data = {
-        'question': current_question,
-        'answers': answers,
-    }
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            form.save(request.user, id)
+            return HttpResponseRedirect(form.get_url())
 
+    else:
+        current_question = get_object_or_404(Question, pk=id)
+        answers = Answer.objects.filter(question=id)
+        form = AnswerForm()
+        data = {
+            'question': current_question,
+            'answers': answers,
+            'forms': form,
+        }
     return render(request, 'blog/question.html', data)
 
 
@@ -54,22 +63,25 @@ def about(request):
     return render(request, 'blog/about.html')
 
 
-# def add_question(request):
-#     return HttpResponse('ok')
+@login_required
+def new_ask(request):
+    if request.method == 'POST':
+        forms = AskForm(request.POST)
+        if forms.is_valid():
+            forms.save(request.user)
+            return HttpResponseRedirect('/' + forms.get_url())
+    else:
+        forms = AskForm()
+    return render(request, 'blog/new.html', {'forms': forms})
 
 
-# def new_page(request):
-#     if request.method == 'POST':
-#         forms = NewQuestionForm(request.POST)
-#         if forms.is_valid():
-#             new_questions = Question()
-#             new_questions.title = forms.question
-#             new_questions.text = forms.text
-#             new_questions.rating = 0
-#             new_questions.author = request.user
-#             new_questions.likes = request.user
-#             new_questions.seve()
-#             return HttpResponseRedirect('blog/about.html')
-#     else:
-#         forms = NewQuestionForm()
-#     return render(request, 'blog/new.html', {'forms': forms})
+@login_required
+def new_answer(request):
+    if request.method == 'POST':
+        forms = AnswerForm(request.POST)
+        if forms.is_valid():
+            forms.save(request.user)
+            return HttpResponseRedirect('/') # need question redirect to page
+    else:
+        forms = AnswerForm()
+    return render(request, 'blog/answer.html', {'forms': forms})

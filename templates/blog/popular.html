@@ -5,25 +5,31 @@ Home
 {% endblock %}
 
 {% block content %}
+
 	{% for question in page_posts %}
 		<h3><a href="{% url 'qa:question' question.id %}"> {{ question.title }} </a></h3>
 		<p>{{ question.author }}, {{ question.added_at }}, like {{question.rating }} </p>
+		<p>{{ question.get_short_text }}</p>
 	{% endfor %}
 
 <div class="pagination">
-	<span class="step-links">
-	{% if page_posts.has_previous %}
-		<a href="?page={{ page_posts.previous_page_number }}">previous</a>
-	{% endif %}
+	<ul class="pagination">
+		{% if page_posts.has_previous %}
+			<li><a href="?page={{ page_posts.previous_page_number }}">&laquo;</a></li>
+		{% endif %}
 		
-	<span class="current">
-		Page {{ page_posts.number }} of {{ page_posts.paginator.num_pages }}
-	</span>
-	{% if page_posts.has_next %}
-		<a href="?page={{ page_posts.next_page_number }}">next</a>
-	{% endif %}
-	</span>	
+		{% for num in page_posts.paginator.page_range %}
+			{% if num == page_posts.number %}
+				<li class="active"><a href="?page={{ num }}">{{ num }}</a></li>	
+			{% else %}
+				<li><a href="?page={{ num }}">{{ num }}</a></li>
+			{% endif %}
+		{% endfor %}
+		
+		{% if page_posts.has_next %}
+			<li><a href="?page={{ page_posts.next_page_number }}">&raquo;</a></li>
+		{% endif %}
+	</ul>	
 </div>
-	
 
 {% endblock %}

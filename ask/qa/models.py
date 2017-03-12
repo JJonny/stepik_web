@@ -2,9 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-SHORT_TEXT = 500
-
-
 class QuestionManger(models.Manager):
     def new(self):
         return Question.objects.order_by('-added_at')
@@ -25,16 +22,10 @@ class Question(models.Model):
     def __str__(self):
         return self.title
 
-    def get_short_text(self):
-        if len(self.text) > SHORT_TEXT:
-            return self.text[:SHORT_TEXT]
-        else:
-            return self.text
-
 
 class Answer(models.Model):
     text = models.TextField()
-    added_at = models.DateTimeField()
+    added_at = models.DateTimeField(auto_now_add=True)
     question = models.ForeignKey(Question)
     author = models.ForeignKey(User)
 
