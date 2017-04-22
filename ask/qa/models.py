@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+SHORT_TITLE_LEN = 66
 
 class QuestionManger(models.Manager):
     def new(self):
@@ -20,7 +21,16 @@ class Question(models.Model):
     likes = models.ManyToManyField(User, related_name='question_like_user')
 
     def __str__(self):
-        return self.title
+        return '{} - {}'.format(self.id, self.title)
+
+    def get_url(self):
+        return '/question/{}/'.format(self.id)
+
+    def get_short_title(self):
+        if len(self.title) > SHORT_TITLE_LEN:
+            return self.title[:SHORT_TITLE_LEN] + '...'
+        else:
+            return self.title
 
 
 class Answer(models.Model):
@@ -29,5 +39,5 @@ class Answer(models.Model):
     question = models.ForeignKey(Question)
     author = models.ForeignKey(User)
 
-    # def __str__(self):
-    #     return self.author
+    def __str__(self):
+        return '{}-{}'.format(self.question.id, self.question.title)

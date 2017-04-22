@@ -6,25 +6,40 @@
 
 {% block content %}
 
-<h1>{{ question.title }}</h1>
-<p>{{ question.author }}, {{ question.added_at }}, like {{question.rating }}</p>
-<p>{{ question.text }}</p>
+<div class="post">
+<div class="title">
+	<h1>{{ question.title }}</h1>
+</div>
+<div class="date_author">
+	<p>{{ question.author }}, {{ question.added_at }}, like {{question.rating }}</p>
+</div>
+<div class="text">
+	<p>{{ question.text }}</p>
+</div>
+</div>
 
-<h3>Comments</h1>
-	{% for answer in answers %}
-		<p>{{ answer.author }}, {{ answer.added_at }}</p>
-		<p>{{ answer.text }}</p>
+<h4>Answers</h4>
+	{% for answer in question.answer_set.all %}
+	<div class="post">
+		<div class="date-author">
+			<p>{{ answer.author }}, {{ answer.added_at }}</p>
+		</div>
+		<div class="text-answer">
+			<p>{{ answer.text }}</p>
+		</div>
+	</div>
 	{% endfor %}
 
 <form method="post" class="form-vertical">{% csrf_token %}
 	<fieldset>
 		<div class="form-group">
-			<p><label for="id_title" class="col-lg-2 control-label">Text answer</label></p>
-			<div class="col-lg-8">{{ forms.text }}</div>	   	
+			<div class="col-lg-10">
+				{{ form_answer }}
+			</div>	   	
 		</div>		
 		 <div class="form-group">
-      <div class="col-lg-10">
-        <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="col-lg-4">
+        <button type="submit" class="btn btn-primary">Send</button>
       </div>
     </div>
 	</div>
