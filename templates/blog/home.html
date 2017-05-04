@@ -7,9 +7,11 @@ Home
 {% block content %}
 
 	<h1>Home</h1>
+	<div>{{ user }}</div>
+	<div>{{ session }}</div>
 	{% for question in page_posts %}
-	<div class="post">		
-		<h3><a class="title" href="{% url 'qa:question' question.id %}"> {{ question.get_short_title }} </a></h3>		
+	<div class="post">
+		<h3><a class="title" href="{% url 'qa:question' question.id %}"> {{ question.get_short_title }} </a></h3>
 		<div class="date_author">
 			<p>{{ question.author }}, {{ question.added_at }}, like {{question.rating }} </p>
 			<p>answers {{ question.answer_set.count }}</p>
@@ -23,22 +25,22 @@ Home
 		{% if page_posts.has_previous %}
 			<li><a href="?page={{ page_posts.previous_page_number }}">&laquo;</a></li>
 		{% endif %}
-		
+
 		{% for num in page_posts.paginator.page_range %}
 			{% if num == page_posts.number %}
-				<li class="active"><a href="?page={{ num }}">{{ num }}</a></li>	
+				<li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
 			{% else %}
 				<li><a href="?page={{ num }}">{{ num }}</a></li>
 			{% endif %}
-			
+
 
 		{% endfor %}
-		
+
 		{% if page_posts.has_next %}
 			<li><a href="?page={{ page_posts.next_page_number }}">&raquo;</a></li>
 		{% endif %}
-	</ul>	
+	</ul>
 </div>
-	
+
 
 {% endblock %}

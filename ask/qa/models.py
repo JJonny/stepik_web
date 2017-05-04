@@ -41,3 +41,16 @@ class Answer(models.Model):
 
     def __str__(self):
         return '{}-{}'.format(self.question.id, self.question.title)
+
+
+# class User(models.Model):
+#     login = models.CharField(max_length=50, unique=True)
+#     password = models.CharField(max_length=50)
+#     name = models.CharField(max_length=50)
+#
+#
+# class Session(models.Model):
+#     key = models.CharField(max_length=50, unique=True)
+#     user = models.ForeignKey(User)
+#     expires = models.DateTimeField()
+

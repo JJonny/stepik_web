@@ -1,11 +1,11 @@
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth import authenticate, login
 # from django.contrib.auth.decorators import login_required
-# from mysql.connector import authentication
 
 from .models import Question
-from .forms import AskForm, AnswerForm
+from .forms import AskForm, AnswerForm, LoginForm, SignupForm
 
 
 def test(request):
@@ -18,7 +18,7 @@ def question(request, id):
     if request.method == 'POST':
         form_answer = AnswerForm(request.POST)
         if form_answer.is_valid():
-            form_answer.save()
+            form_answer.save(request.user)
             return HttpResponseRedirect(current_question.get_url())
     else:
         form_answer = AnswerForm(initial={'question': str(id)})
@@ -52,7 +52,10 @@ def listing(request):
         page_posts = paginator.page(page)
     except EmptyPage:
         page_posts = paginator.page(paginator.num_pages)
-    return render_to_response('blog/home.html', {'page_posts': page_posts})
+    return render_to_response('blog/home.html',
+                              {'page_posts': page_posts,
+                               'user': request.user,
+                               'session': request.session, })
 
 
 def about(request):
@@ -64,22 +67,48 @@ def new_ask(request):
     if request.method == 'POST':
         forms = AskForm(request.POST)
         if forms.is_valid():
-            forms.save()
+            forms.save(request.user)
             last_id = Question.objects.new()[0].id
-            print('-----count after save {}', last_id)
             return HttpResponseRedirect('/question/{}/'.format(last_id))
     else:
         forms = AskForm()
     return render(request, 'blog/new.html', {'forms': forms})
 
-#
-# #@login_required
-# def new_answer(request):
-#     if request.method == 'POST':
-#         forms = AnswerForm(request.POST)
-#         if forms.is_valid():
-#             forms.save()
-#             return HttpResponseRedirect('/') # need question redirect to page
-#     else:
-#         forms = AnswerForm()
-#     return render(request, 'blog/answer.html', {'forms': forms})
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            print(username, password)
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+            return HttpResponseRedirect('/')
+    else:
+        form = LoginForm()
+    return render(request, 'blog/login.html', {'form': form,
+                                               'user': request.user,
+                                               'session': request.session, })
+
+
+def signup(request):
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data["username"]
+            password = form.raw_passeord
+            user = authenticate(username=username, password=password)
+            print('---------type(user)', type(user))
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+            return HttpResponseRedirect('/')
+    else:
+        form = SignupForm()
+    return render(request, 'blog/signup.html', {'form': form,
+                                           'user': request.user,
+                                           'session': request.session, })

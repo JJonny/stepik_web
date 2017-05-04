@@ -43,7 +43,10 @@
             <li><a href="{% url 'qa:ask' %}">Ask</a></li>
             <li><a href="/popular/?page=1">Most popular</a></li>
             <li><a href="{% url 'qa:about' %}">About</a></li>
-            <!-- <li><a href="#contact">Contact</a></li> --> 
+            <li><a href="/admin">Admin</a></li>
+            <li><a href="{% url 'qa:login' %}">Login</a></li>
+            <li><a href="{% url 'qa:signup' %}">SignUp</a></li>
+            <!-- <li><a href="#contact">Contact</a></li> -->
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -55,7 +58,7 @@
       }
 
       .text {
-        color: #afbed6; 
+        color: #afbed6;
         text-align: justify;
       }
 
@@ -71,19 +74,19 @@
       .post {
         border: 1px solid #272b30;
         border-radius: 2px;
-        background-image: linear-gradient(180deg, #7b7e82, #515459); 
+        background-image: linear-gradient(180deg, #7b7e82, #515459);
         padding-left: 15px;
-        padding-right: 15px;  
-        margin-bottom: 3px; 
-        max-width: 70%;    
+        padding-right: 15px;
+        margin-bottom: 3px;
+        max-width: 70%;
       }
 
-      input, textarea {  
+      input, textarea {
         border: 1px solid #5c78a5;
         background-color: #272b30;
-        color: #afbed6;   
-        width: 500px;      
-        margin-bottom: 3px;   
+        color: #afbed6;
+        width: 500px;
+        margin-bottom: 3px;
       }
 
     </style>
