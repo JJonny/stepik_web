@@ -19,7 +19,7 @@ class AskForm(forms.Form):
         new_q = Question()
         new_q.title = self.cleaned_data['title']
         new_q.text = self.cleaned_data['text']
-        new_q.author = user #User.objects.all()[0]
+        new_q.author = user
         new_q.save()
 
 
@@ -36,7 +36,7 @@ class AnswerForm(forms.Form):
     def save(self, user):
         answer = Answer()
         answer.text = self.cleaned_data['text']
-        answer.author = user # User.objects.all()[0]
+        answer.author = user
         answer.question = Question.objects.get(pk=self.cleaned_data['question'])
         answer.save()
 
@@ -52,14 +52,12 @@ class LoginForm(forms.Form):
         else:
             return username
 
-
     def clean_password(self):
         password = self.cleaned_data.get('password')
         if not password:
             raise forms.ValidationError('Not set password')
         else:
             return password
-
 
     def clean(self):
         username = self.cleaned_data.get('username')
@@ -80,10 +78,10 @@ class SignupForm(forms.Form):
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if not username:
-            raise forms.ValidationError('Не задано имя пользователя')
+            raise forms.ValidationError('Not set username')
         try:
             User.objects.get(username=username)
-            raise forms.ValidationError('Такой пользователь уже существует')
+            raise forms.ValidationError('User exist')
         except User.DoesNotExist:
             pass
         return username
@@ -91,14 +89,15 @@ class SignupForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if not email:
-            raise forms.ValidationError('Не указан адрес электронной почты')
+            raise forms.ValidationError('Not found email address')
         return email
 
     def clean_password(self):
         password = self.cleaned_data.get('password')
         if not password:
-            raise forms.ValidationError('Не указан пароль')
-        self.raw_passeord = password
+            raise forms.ValidationError('Not set password')
+        self.raw_password = password
+        print('pass', password)
         return make_password(password)
 
     def save(self):

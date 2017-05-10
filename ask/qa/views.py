@@ -1,8 +1,8 @@
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth import authenticate, login
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from .models import Question
 from .forms import AskForm, AnswerForm, LoginForm, SignupForm
@@ -62,7 +62,7 @@ def about(request):
     return render(request, 'blog/about.html')
 
 
-#@login_required
+@login_required
 def new_ask(request):
     if request.method == 'POST':
         forms = AskForm(request.POST)
@@ -75,13 +75,21 @@ def new_ask(request):
     return render(request, 'blog/new.html', {'forms': forms})
 
 
+@login_required
+def logout(request):
+    try:
+        logout(request)
+    except:
+        print('----------logout fail')
+
+
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            print(username, password)
+            # print(username, password)
             user = authenticate(username=username, password=password)
             if user is not None:
                 if user.is_active:
@@ -100,9 +108,8 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data["username"]
-            password = form.raw_passeord
+            password = form.raw_password
             user = authenticate(username=username, password=password)
-            print('---------type(user)', type(user))
             if user is not None:
                 if user.is_active:
                     login(request, user)
