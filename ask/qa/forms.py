@@ -2,7 +2,7 @@ from django import forms
 # from django.forms import ModelForm
 # from django.forms.models import ModelForm
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+# from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 
 from .models import Question, Answer
@@ -67,7 +67,7 @@ class LoginForm(forms.Form):
         except User.DoesNotExist:
             raise forms.ValidationError('Wrong username or password')
         if not user.check_password(password):
-            raise forms.ValidationError('Worng username or password')
+            raise forms.ValidationError('Wrong username or password')
 
 
 class SignupForm(forms.Form):
