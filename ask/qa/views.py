@@ -12,7 +12,7 @@ def test(request):
     questions = Question.objects.all()
     return render(request, 'blog/home.html', {'questions': questions})
 
-
+@login_required(login_url='/login/')
 def question(request, id):
     current_question = get_object_or_404(Question, pk=id)
     if request.method == 'POST':
@@ -62,7 +62,7 @@ def about(request):
     return render(request, 'blog/about.html')
 
 
-@login_required
+@login_required(login_url='/login/')
 def new_ask(request):
     if request.method == 'POST':
         forms = AskForm(request.POST)
@@ -75,12 +75,11 @@ def new_ask(request):
     return render(request, 'blog/new.html', {'forms': forms})
 
 
-@login_required
-def logout(request):
-    try:
-        logout(request)
-    except:
-        print('----------logout fail')
+@login_required(login_url='/login/')
+def auth_logout(request):
+    logout(request)
+
+    return HttpResponseRedirect('/')
 
 
 def login_view(request):

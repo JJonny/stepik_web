@@ -12,6 +12,6 @@ urlpatterns = [
     url(r'^ask/$', views.new_ask, name='ask'),
     url(r'^popular/', views.popular, name='popular'),
     url(r'^new/', views.test, name='new'),
-    # url(r'^logout/', views.logout, name='login'),
+    url(r'^auth_logout/', views.auth_logout, name='auth_logout'),
     url(r'^about/', views.about, name='about'),
 ]
