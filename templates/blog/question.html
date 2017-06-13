@@ -4,6 +4,29 @@
 {{ question.title }}
 {% endblock %}
 
+{% block javascript %}
+<script>
+	$("#like").click(function () {
+		var pathname = window.location.pathname.split('/');
+		var post_num = pathname[2];
+
+		$.ajax({
+			url: '/ajax/rating_up/',
+			data: {
+				'post_num': post_num
+			},
+
+			dataType: 'json',
+			success: function (data) {
+				$("#like").html(data.rating);
+			}
+		});
+
+
+	})
+</script>
+{% endblock %}
+
 {% block content %}
 
 <div class="post">
@@ -11,7 +34,7 @@
 	<h1>{{ question.title }}</h1>
 </div>
 <div class="date_author">
-	<div>{{ question.author }}, {{ question.added_at }}, like {{question.rating }}</div>
+	<div>{{ question.author }}, {{ question.added_at }}, Like<span class="badge" id="like">{{ question.rating }}</span></div>
 </div>
 <div class="text">
 	<div>{{ question.text }}</div>
@@ -19,6 +42,16 @@
 </div>
 
 <h4>Answers</h4>
+{% for answer in answers %}
+	<div class="post">
+		<div class="date-author">
+			<p>{{ answer.author }}, {{ answer.added_at }}</p>
+		</div>
+		<div class="text-answer">
+			<p>{{ answer.text }}</p>
+		</div>
+	</div>
+{% endfor %}
 
 <form method="post" class="form-vertical">{% csrf_token %}
 	<fieldset>
@@ -35,14 +68,4 @@
 	</div>
 </form>
 
-{% for answer in answers %}
-	<div class="post">
-		<div class="date-author">
-			<p>{{ answer.author }}, {{ answer.added_at }}</p>
-		</div>
-		<div class="text-answer">
-			<p>{{ answer.text }}</p>
-		</div>
-	</div>
-{% endfor %}
 {% endblock %}

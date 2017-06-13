@@ -6,15 +6,12 @@ Home
 
 {% block content %}
 
-	<h1>Home</h1>
-	<div>{{ user }}</div>
-	<div>{{ session }}</div>
+	<h3>{{ user }}</h3>
 	{% for question in page_posts %}
 	<div class="post">
-		<h3><a class="title" href="{% url 'qa:question' question.id %}"> {{ question.get_short_title }} </a></h3>
+		<h4><a class="title" href="{% url 'qa:question' question.id %}"> {{ question.get_short_title }} </a></h4>
 		<div class="date_author">
-			<p>{{ question.author }}, {{ question.added_at }}, like {{question.rating }} </p>
-			<p>answers {{ question.answer_set.count }}</p>
+			<p>{{ question.author }}, {{ question.added_at }}, Like<span class="badge">{{ question.rating }}</span>, Answers {{ question.answer_set.count }}</p>
 		</div>
 	</div>
 			<!-- <p>{{ question.get_short_text }}</p> -->

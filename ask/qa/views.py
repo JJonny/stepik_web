@@ -102,14 +102,6 @@ def login_view(request):
                                                'session': request.session, })
 
 
-def validate_username(request):
-    username = request.GET.get('username', None)
-    data = {
-        'is_taken': User.objects.filter(username__iexact=username).exists(),
-    }
-    return JsonResponse(data)
-
-
 def signup(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
@@ -127,3 +119,24 @@ def signup(request):
     return render(request, 'blog/signup.html', {'form': form,
                                            'user': request.user,
                                            'session': request.session, })
+
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username__iexact=username).exists(),
+    }
+    return JsonResponse(data)
+
+
+def rating_up(request):
+    post_num = request.GET.get('post_num', None)
+    # username = request.GET.get('username', None)
+    current_post = get_object_or_404(Question, pk=post_num)
+    # user = User.objects.filter(username__iexact=username)
+    current_post.rating += 1
+    current_post.save()
+    data = {
+        'rating': current_post.rating,
+    }
+    return JsonResponse(data)
