@@ -3,6 +3,7 @@ from django.db import models
 
 SHORT_TITLE_LEN = 66
 
+
 class QuestionManger(models.Manager):
     def new(self):
         return Question.objects.order_by('-added_at')
@@ -34,6 +35,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
+    objects = QuestionManger()
     text = models.TextField()
     added_at = models.DateTimeField(auto_now_add=True)
     question = models.ForeignKey(Question)
@@ -41,16 +43,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return '{}-{}'.format(self.question.id, self.question.title)
-
-
-# class User(models.Model):
-#     login = models.CharField(max_length=50, unique=True)
-#     password = models.CharField(max_length=50)
-#     name = models.CharField(max_length=50)
-#
-#
-# class Session(models.Model):
-#     key = models.CharField(max_length=50, unique=True)
-#     user = models.ForeignKey(User)
-#     expires = models.DateTimeField()
-

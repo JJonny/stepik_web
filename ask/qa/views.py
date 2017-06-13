@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from .models import Question
+from .models import Question, Answer
 from .forms import AskForm, AnswerForm, LoginForm, SignupForm
 
 
@@ -16,6 +16,7 @@ def test(request):
 @login_required(login_url='/login/')
 def question(request, id):
     current_question = get_object_or_404(Question, pk=id)
+    answers = current_question.answer_set.order_by('-added_at')
     if request.method == 'POST':
         form_answer = AnswerForm(request.POST)
         if form_answer.is_valid():
@@ -26,6 +27,7 @@ def question(request, id):
     return render(request, 'blog/question.html', {
             'question': current_question,
             'form_answer': form_answer,
+            'answers': answers,
         })
 
 
@@ -79,7 +81,6 @@ def new_ask(request):
 @login_required(login_url='/login/')
 def auth_logout(request):
     logout(request)
-
     return HttpResponseRedirect('/')
 
 
