@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^new/', views.test, name='new'),
     url(r'^auth_logout/', views.auth_logout, name='auth_logout'),
     url(r'^about/', views.about, name='about'),
+    url(r'^ajax/validate_username/$', views.validate_username, name='validate_username'),
 ]

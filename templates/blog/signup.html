@@ -1,19 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SignUp</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
+
+{% block title %}SignUp{%endblock%}
+
+{%block javascript%}
+<script>
+    $("#id_username").change(function () {
+        var username = $(this).val();
+
+        $.ajax({
+            url: '/ajax/validate_username/',
+            data: {
+                'username': username
+            },
+
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_taken) {
+                    var str = "A user with this username already exists.";
+                    $("#mess_exist").html( str );
+                }
+            }
+        });
+    });
+  </script>
+{%endblock%}
+
+{%block content %}
     <form method="post" action="/signup/">
         <fieldset>
-{% csrf_token %}
-{{ form.as_p }}
+        {% csrf_token %}
+        {{ form.as_p }}
         </fieldset>
+        <div id="mess_exist"></div>
         <button type="submit">Зарегистрироваться</button>
     </form>
     <div>User: {{ user }}</div>
     <div>Session: {{ session }}</div>
     <div><a href="/">Return to main page</a></div>
-</body>
-</html>
+
+{%endblock%}

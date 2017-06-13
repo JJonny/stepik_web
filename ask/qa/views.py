@@ -1,7 +1,8 @@
 from django.shortcuts import render, render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from .models import Question
@@ -98,6 +99,14 @@ def login_view(request):
     return render(request, 'blog/login.html', {'form': form,
                                                'user': request.user,
                                                'session': request.session, })
+
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username__iexact=username).exists(),
+    }
+    return JsonResponse(data)
 
 
 def signup(request):
