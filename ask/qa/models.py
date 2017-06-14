@@ -22,7 +22,7 @@ class Question(models.Model):
     likes = models.ManyToManyField(User, related_name='question_like_user')
 
     def __str__(self):
-        return '{} - {}'.format(self.id, self.title)
+        return u'{} - {}'.format(self.id, self.title)
 
     def get_url(self):
         return '/question/{}/'.format(self.id)
@@ -42,4 +42,4 @@ class Answer(models.Model):
     author = models.ForeignKey(User)
 
     def __str__(self):
-        return '{}-{}'.format(self.question.id, self.question.title)
+        return u'{}-{}'.format(self.question.id, self.question.title)
