@@ -18,7 +18,7 @@
 
 			dataType: 'json',
 			success: function (data) {
-				$("#like").html(data.rating);
+				$("#like").html("Like " + data.rating);
 			}
 		});
 
@@ -34,7 +34,7 @@
 	<h1>{{ question.title }}</h1>
 </div>
 <div class="date_author">
-	<div>{{ question.author }}, {{ question.added_at }}, Like<span class="badge" id="like">{{ question.rating }}</span></div>
+	<div>{{ question.author }}, {{ question.added_at }},  <span class="badge" id="like">Like {{ question.rating }}</span></div>
 </div>
 <div class="text">
 	<div>{{ question.text }}</div>
