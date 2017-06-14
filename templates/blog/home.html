@@ -11,7 +11,7 @@ Home
 	<div class="post">
 		<h4><a class="title" href="{% url 'qa:question' question.id %}"> {{ question.get_short_title }} </a></h4>
 		<div class="date_author">
-			<p>{{ question.author }}, {{ question.added_at }}, Like<span class="badge">{{ question.rating }}</span>, Answers {{ question.answer_set.count }}</p>
+			<p>{{ question.author }}, {{ question.added_at }},  <span class="badge">Like {{ question.rating }}</span>, <span class="badge">Answers {{ question.answer_set.count }}</span></p>
 		</div>
 	</div>
 			<!-- <p>{{ question.get_short_text }}</p> -->
