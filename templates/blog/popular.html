@@ -8,13 +8,13 @@ Popular
 
 	<h1>Most popular question</h1>
 	{% for question in page_posts %}
-	<div class="post">		
-		<h3><a class="title" href="{% url 'qa:question' question.id %}"> {{ question.title }} </a></h3>		
+	<div class="post" id="post-main-page">
+		<h3><a class="title" href="{% url 'qa:question' question.id %}"> {{ question.title }} </a></h3>
 		<div class="date_author">
-			<p>{{ question.author }}, {{ question.added_at }}, like {{question.rating }} </p>
+			<p>{{ question.author }}, {{ question.added_at }} like {{question.rating }} </p>
 		</div>
 	</div>
-		
+
 	{% endfor %}
 
 <div class="pagination">
@@ -22,19 +22,19 @@ Popular
 		{% if page_posts.has_previous %}
 			<li><a href="?page={{ page_posts.previous_page_number }}">&laquo;</a></li>
 		{% endif %}
-		
+
 		{% for num in page_posts.paginator.page_range %}
 			{% if num == page_posts.number %}
-				<li class="active"><a href="?page={{ num }}">{{ num }}</a></li>	
+				<li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
 			{% else %}
 				<li><a href="?page={{ num }}">{{ num }}</a></li>
 			{% endif %}
 		{% endfor %}
-		
+
 		{% if page_posts.has_next %}
 			<li><a href="?page={{ page_posts.next_page_number }}">&raquo;</a></li>
 		{% endif %}
-	</ul>	
+	</ul>
 </div>
 
 {% endblock %}
