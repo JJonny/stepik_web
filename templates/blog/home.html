@@ -12,8 +12,8 @@ Home
 	<a class="title post post-main-page" href="{% url 'qa:question' question.id %}"> <h4>{{ question.get_short_title }}</h4>
 		<div class="date_author">
 			<p>{{ question.author }}, {{ question.added_at }}
-				<span class="badge">Like {{ question.rating }}</span>
-				<span class="badge">Answers {{ question.answer_set.count }}</span>
+				<span class="badge title">Like {{ question.rating }}</span>
+				<span class="badge title">Answers {{ question.answer_set.count }}</span>
 			</p>
 		</div>
 	</a>
