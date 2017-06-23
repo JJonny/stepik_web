@@ -27,11 +27,13 @@
 </script>
 <style type="text/css">
 	#like {
-		transition: 0.5s;
+		transition: 0.2s;
 	}
 
 	#like:hover {
 		transform: scale(1.1);
+		background: green;
+		cursor: pointer;
 	}
 </style>
 {% endblock %}
@@ -40,10 +42,10 @@
 
 <div class="post">
 <div class="title">
-	<h1>{{ question.title }}</h1>
+	<h4>{{ question.title }}</h14>
 </div>
 <div class="date_author">
-	<div>{{ question.author }}, {{ question.added_at }},  <span class="badge" id="like">Like {{ question.rating }}</span></div>
+	<div>{{ question.author }}, {{ question.added_at }},  <a href="" class="badge" id="like">Like {{ question.rating }}</a></div>
 </div>
 <div class="text">
 	<div>{{ question.text }}</div>

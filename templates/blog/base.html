@@ -75,20 +75,17 @@
         max-width: 70%;
       }
 
-      .date-author, label, h4 {
-        color: #afbed6;
+      .post-main-page:hover {
+        text-decoration: none;
+        transform: scale(1.02);
       }
 
-      #post-main-page:hover {
-        transform: scale(1.05);
-      }
-
-      #post-main-page {
-        transition: 0.7s;
+      .post-main-page {
+        transition: 0.4 s;
       }
 
       .post {
-        font: 14px/24px "Source Code Pro", Inconsolta, "Lucida Concole", Terminal, "Courier New", Courier;
+        display: block;
         border: 1px solid #272b30;
         border-radius: 2px;
         background-image: linear-gradient(180deg, #7b7e82, #515459);
@@ -96,6 +93,10 @@
         padding-right: 15px;
         margin-bottom: 3px;
         max-width: 60%;
+      }
+
+      a.post {
+        text-decoration: none;
       }
 
       input, textarea {
