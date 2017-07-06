@@ -43,3 +43,9 @@ class Answer(models.Model):
 
     def __str__(self):
         return u'{}-{}'.format(self.question.id, self.question.title)
+
+class UserAvatar(models.Model):
+    path_to_image = models.CharField(max_length=255)
+
+    def __str__(self):
+        return u'{}-{}'.format(self.id, self.path_to_image)
