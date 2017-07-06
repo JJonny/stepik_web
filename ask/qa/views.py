@@ -44,9 +44,15 @@ def listing(request):
     post_all = Question.objects.new()
     paginator = Paginator(post_all, 10)
     page = request.GET.get('page')
+    user_id = 0
+    try:
+        user_id = User.objects.get(username=request.user).id
+    except User.DoesNotExist:
+        pass
     return render_to_response('blog/home.html',
                               {'page_posts': pagination_page(paginator, page),
-                               'user': request.user, })
+                               'user': request.user,
+                               'user_id': user_id, })
 
 
 def pagination_page(paginator, page):

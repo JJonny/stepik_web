@@ -1,3 +1,4 @@
+
 {% extends 'blog/base.html' %}
 
 {% block title %}
@@ -6,9 +7,15 @@ Home
 
 {% block content %}
 
-	<h3>{{ user }}</h3>
-	{% for question in page_posts %}
+	<div class="info-user">
+		<div class="ava">
+			<img src="/home/jonny/web/box/web/ask/qa/static/blog/images/default_avatar.png" alt="" />
+		</div>
+		<div class="login-user-info">{{ user_id }} {{ user }}</div>
+	</div>
 
+
+	{% for question in page_posts %}
 	<a class="title post post-main-page" href="{% url 'qa:question' question.id %}"> <h4>{{ question.get_short_title }}</h4>
 		<div class="date_author">
 			<p>{{ question.author }}, {{ question.added_at }}
@@ -17,8 +24,6 @@ Home
 			</p>
 		</div>
 	</a>
-
-			<!-- <p>{{ question.get_short_text }}</p> -->
 	{% endfor %}
 
 <div class="pagination">

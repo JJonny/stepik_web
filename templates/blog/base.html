@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,11 +12,11 @@
     <title>{% block title %}{% endblock %} &ndash; Ask </title>
 
     <!-- Bootstrap core CSS -->
-    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    {# <link rel="stylesheet" type="text/css" href="style.css"> #}
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/slate/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <!-- {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static "style.css" %}" /> -->
+
+    <link rel="stylesheet" type="text/css" href="{% static '../' %}" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -120,6 +121,26 @@
         margin-bottom: 3px;
       }
 
+      .info-user {
+        position: relative;
+      }
+
+      .info-user .ava img {
+        margin: 20px 0;
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+
+      }
+
+      .info-user .login-user-info {
+        position: absolute;
+        left: 120px;
+        top: 50px;
+        font-size: 24px;
+        display: inline-block;
+      }
     </style>
     <div class="container main-content">
   		{% block content %}
