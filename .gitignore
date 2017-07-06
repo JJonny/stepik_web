@@ -2,3 +2,5 @@
 ask/\.idea/workspace\.xml
 
 *.pyc
+
+ask/qa/static/blog/images/default_avatar\.png
