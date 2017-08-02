@@ -27,6 +27,9 @@ class Question(models.Model):
     def get_url(self):
         return '/question/{}/'.format(self.id)
 
+    def get_addet_date_time(self):
+        return self.added_at.strftime('%d/%m/%y %H:%M')
+
     def get_short_title(self):
         if len(self.title) > SHORT_TITLE_LEN:
             return self.title[:SHORT_TITLE_LEN] + '...'
