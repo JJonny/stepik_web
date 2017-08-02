@@ -51,8 +51,7 @@ def listing(request):
         pass
     return render_to_response('blog/home.html',
                               {'page_posts': pagination_page(paginator, page),
-                               'user': request.user,
-                               'user_id': user_id, })
+                               'user': request.user, })
 
 
 def pagination_page(paginator, page):
