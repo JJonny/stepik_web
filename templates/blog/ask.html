@@ -5,21 +5,22 @@ Ask
 {% endblock %}
 
 {% block content %}
+
 <h1>Create new question</h1>
 <form action="{% url 'qa:ask' %}" method="post" class="form-vertical">{% csrf_token %}
-	<fieldset>
-		<div class="form-group">
-			<p><label for="id_title" class="col-lg-2 control-label">Title</label></p>
-			<div class="col-lg-10">{{ forms.title }}</div>
-			<p><label for="id_title" class="col-lg-2 control-label">Text question</label></p>
-			<div class="col-lg-8">{{ forms.text }}</div>
-		</div>
-		 <div class="form-group">
+    <fieldset>
+        <div class="form-group">
+            <p><label for="id_title" class="col-lg-2 control-label">Title</label></p>
+            <div class="col-lg-10">{{ forms.title }}</div>
+            <p><label for="id_title" class="col-lg-2 control-label">Text question</label></p>
+            <div class="col-lg-8">{{ forms.text }}</div>
+        </div>
+         <div class="form-group">
       <div class="col-lg-10">
-        <button type="submit" class="btn btn-default">Post</button>
+        <button type="submit" class="btn btn-default">Submit</button>
       </div>
     </div>
-	</div>
+    </div>
 </form>
 
 {% endblock %}

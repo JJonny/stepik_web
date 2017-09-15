@@ -26,16 +26,24 @@
 {%endblock%}
 
 {%block content %}
-    <form method="post" action="/signup/">
-        <fieldset>
-        {% csrf_token %}
-        {{ form.as_p }}
-        </fieldset>
-        <div id="mess_exist"></div>
-        <button type="submit">Зарегистрироваться</button>
-    </form>
-    <div>User: {{ user }}</div>
-    <div>Session: {{ session }}</div>
-    <div><a href="/">Return to main page</a></div>
+<div class="container space">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <form method="post" action="/signup/">{% csrf_token %}
+                <div class="form-group">
+                    <h4>Имя</h4>
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <h4>Email</h4>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <h4>Пароль</h4>
+                    {{ form.password }}
+                </div>
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </form>
 
 {%endblock%}

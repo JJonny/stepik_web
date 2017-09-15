@@ -4,15 +4,20 @@
 {% block title %}Login{%endblock%}
 
 {% block content %}
-    <form method="post" action="/login/">
-        <fieldset>
-{% csrf_token %}
-{{ form.as_p }}
-        </fieldset>
-        <button type="submit">Войти</button>
+<div class="container space">
+    <div class="row">
+        <div class="col-xs-12">
+            <form method="post" action="/login/">{% csrf_token %}
+                <div class="form-group">
+                    <h4>Имя</h4>
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <h4>Пароль</h4>
+                    {{ form.password }}
+                </div>
+
+            <button type="submit" class="btn btn-primary">Войти</button>
     </form>
-    <div>User: {{ user }}</div>
-    <div>Session: {{ session }}</div>
-    <div><a href="/">Return to main page</a></div>
 
 {%endblock%}
